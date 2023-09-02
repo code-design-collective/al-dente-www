@@ -1,9 +1,18 @@
+import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
 const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 
 export const useUserStore = defineStore('user', () => {
+  // State
+  const user = ref(null);
+
+  // Setters
+  const setUser = (value) => {
+    user.value = value;
+  };
+
   // Methods
   const login = async (credentials) => {
     try {
@@ -13,6 +22,7 @@ export const useUserStore = defineStore('user', () => {
       );
       const { token, user } = response.data;
 
+      setUser(user);
       localStorage.setItem('token', token);
     } catch (error) {
       console.error('Login failed:', error);
@@ -31,13 +41,14 @@ export const useUserStore = defineStore('user', () => {
         password: formData.password,
       });
 
-      console.log(response)
+      console.log(response);
     } catch (error) {
       console.error('Sign Up failed:', error);
     }
   };
 
   return {
+    user,
     login,
     signup,
   };
