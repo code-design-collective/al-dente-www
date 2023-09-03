@@ -4,8 +4,8 @@
             <h1 class="text-center text-[3rem]">Login</h1>
             <form @submit.prevent="userStore.login(formData)" class="flex flex-col gap-y-[1rem]">
                 <div class="flex flex-col gap-y-[0.5rem]">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" v-model="formData.username" class="border" />
+                    <label for="username">Email</label>
+                    <input type="text" id="email" v-model="formData.email" class="border" />
                 </div>
                 <div class="flex flex-col gap-y-[0.5rem]">
                     <label for="password">Password</label>
@@ -26,7 +26,7 @@ const userStore = useUserStore();
 
 // State
 const formData = ref({
-    username: '',
+    email: '',
     password: '',
 });
 </script>

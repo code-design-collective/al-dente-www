@@ -3,10 +3,10 @@
         <div class="flex flex-col gap-y-[2rem] bg-blue-400 px-[6rem] py-[4rem] rounded-md">
             <h1>Sign Up</h1>
             <form @submit.prevent="userStore.signup(formData)">
-                <div>
+                <!-- <div>
                     <label for="username">Username:</label>
                     <input type="text" id="username" v-model="formData.username" />
-                </div>
+                </div> -->
                 <div>
                     <label for="email">Email:</label>
                     <input type="email" id="email" v-model="formData.email" />
@@ -34,7 +34,7 @@ const userStore = useUserStore();
 
 // State
 const formData = ref({
-    username: '',
+    // username: '',
     email: '',
     password: '',
     confirmPassword: '',
