@@ -10,18 +10,22 @@ export const useUserStore = defineStore('user', () => {
   const router = useRouter();
 
   // State
-  const user = ref(null);
   const isLoading = ref(false);
 
   // Computed
   const isAuthenticated = computed(() => {
     return !!localStorage.getItem('token');
   });
+  // todo fix
+  const user = computed(() => {
+    const userString = localStorage.getItem('user');
+    if (userString) {
+      return JSON.parse(userString);
+    }
+    return null;
+  });
 
   // Setters
-  const setUser = (value) => {
-    user.value = value;
-  };
   const setIsLoading = (value) => {
     isLoading.value = value;
   };
@@ -36,10 +40,10 @@ export const useUserStore = defineStore('user', () => {
         credentials
       );
       const { token, user } = response.data;
-
+      console.log(response.data);
       localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
 
-      setUser(user);
       setIsLoading(false);
 
       router.push({ name: 'Dashboard' });
@@ -51,8 +55,8 @@ export const useUserStore = defineStore('user', () => {
   };
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
 
-    setUser(null);
     router.push({ name: 'Login' });
   };
   const signup = async (formData) => {

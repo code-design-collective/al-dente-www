@@ -10,7 +10,6 @@
     .blue-border {
         @apply border-2 border-blue-500;
     }
-
     .flex-col-half {
         @apply flex flex-col gap-y-[0.5rem];
     }
