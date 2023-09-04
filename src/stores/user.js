@@ -56,6 +56,8 @@ export const useUserStore = defineStore('user', () => {
     router.push({ name: 'Login' });
   };
   const signup = async (formData) => {
+    setIsLoading(true);
+
     try {
       if (formData.password !== formData.confirmPassword) {
         console.error('Passwords do not match');
@@ -68,10 +70,12 @@ export const useUserStore = defineStore('user', () => {
       });
 
       if (response) {
+        setIsLoading(false);
         router.push({ name: 'Login' });
       }
     } catch (error) {
       console.error('Sign Up failed:', error);
+      setIsLoading(false);
     }
   };
 

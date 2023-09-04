@@ -15,24 +15,34 @@
                     <label for="confirmPassword">Confirm Password:</label>
                     <input type="password" id="confirmPassword" v-model="formData.confirmPassword" />
                 </div>
-                <button type="submit">Sign Up</button>
+                <button :class="['pt-[1rem] border rounded-md', loadingClass]" :disabled="isLoading" type="submit">{{ buttonText }}</button>
             </form>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useUserStore } from '../stores/user'
 
 // Store
 const userStore = useUserStore();
 
 // State
+const { isLoading } = storeToRefs(userStore);
 const formData = ref({
     email: '',
     password: '',
     confirmPassword: '',
 });
+
+// Computed
+const buttonText = computed(() => {
+    return isLoading.value ? 'Loading...' : 'Sign Up';
+})
+const loadingClass = computed(() => ({
+    'hover:cursor-not-allowed bg-gray-400': isLoading.value,
+}))
 </script>
 
