@@ -75,6 +75,7 @@ export const useUserStore = defineStore('user', () => {
 
       if (response) {
         setIsLoading(false);
+        window.alert('Signup successful! Click OK to go to the login page.');
         router.push({ name: 'Login' });
       }
     } catch (error) {
