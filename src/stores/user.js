@@ -1,20 +1,35 @@
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
+import { useRouter } from 'vue-router';
+
 import axios from 'axios';
 
 const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
 
 export const useUserStore = defineStore('user', () => {
+  const router = useRouter();
+
   // State
   const user = ref(null);
+  const isLoading = ref(false);
+
+  // Computed
+  const isAuthenticated = computed(() => {
+    return !!localStorage.getItem('token');
+  });
 
   // Setters
   const setUser = (value) => {
     user.value = value;
   };
+  const setIsLoading = (value) => {
+    isLoading.value = value;
+  };
 
   // Methods
   const login = async (credentials) => {
+    setIsLoading(true);
+
     try {
       const response = await axios.post(
         `${BASE_API_URL}/users/login/`,
@@ -22,11 +37,23 @@ export const useUserStore = defineStore('user', () => {
       );
       const { token, user } = response.data;
 
-      setUser(user);
       localStorage.setItem('token', token);
+
+      setUser(user);
+      setIsLoading(false);
+
+      router.push({ name: 'Dashboard' });
     } catch (error) {
       console.error('Login failed:', error);
+
+      setIsLoading(false);
     }
+  };
+  const logout = () => {
+    localStorage.removeItem('token');
+
+    setUser(null);
+    router.push({ name: 'Login' });
   };
   const signup = async (formData) => {
     try {
@@ -36,20 +63,24 @@ export const useUserStore = defineStore('user', () => {
       }
 
       const response = await axios.post(`${BASE_API_URL}/users/signup/`, {
-        username: formData.username,
         email: formData.email,
         password: formData.password,
       });
 
-      console.log(response);
+      if (response) {
+        router.push({ name: 'Login' });
+      }
     } catch (error) {
       console.error('Sign Up failed:', error);
     }
   };
 
   return {
+    isAuthenticated,
+    isLoading,
     user,
     login,
+    logout,
     signup,
   };
 });
