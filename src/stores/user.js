@@ -1,7 +1,6 @@
 import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
-
 import axios from 'axios';
 
 const BASE_API_URL = import.meta.env.VITE_BASE_API_URL;
@@ -11,18 +10,11 @@ export const useUserStore = defineStore('user', () => {
 
   // State
   const isLoading = ref(false);
+  const user = ref(JSON.parse(localStorage.getItem('user')) || null);
 
   // Computed
   const isAuthenticated = computed(() => {
     return !!localStorage.getItem('token');
-  });
-  // todo fix
-  const user = computed(() => {
-    const userString = localStorage.getItem('user');
-    if (userString) {
-      return JSON.parse(userString);
-    }
-    return null;
   });
 
   // Setters
@@ -39,13 +31,14 @@ export const useUserStore = defineStore('user', () => {
         `${BASE_API_URL}/users/login/`,
         credentials
       );
-      const { token, user } = response.data;
-      console.log(response.data);
+      const { token, user: userData } = response.data;
+
       localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(userData));
+
+      user.value = userData;
 
       setIsLoading(false);
-
       router.push({ name: 'Dashboard' });
     } catch (error) {
       console.error('Login failed:', error);
@@ -53,12 +46,16 @@ export const useUserStore = defineStore('user', () => {
       setIsLoading(false);
     }
   };
+
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
 
+    user.value = null;
+
     router.push({ name: 'Login' });
   };
+
   const signup = async (formData) => {
     setIsLoading(true);
 

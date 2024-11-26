@@ -29,20 +29,20 @@ const router = createRouter({
 });
 
 // Todo check before route enter for auth req routes
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some((record) => record.meta.requiresAuth)) {
-//     // Check if the user is authenticated
-//     if (!!!localStorage.getItem('token')) {
-//       // User is not authenticated, redirect to the login page or show an error message
-//       next({ name: 'Login' });
-//     } else {
-//       // User is authenticated, allow access to the route
-//       next();
-//     }
-//   } else {
-//     // Non-authenticated routes, allow access
-//     next();
-//   }
-// });
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    // Check if the user is authenticated
+    if (!!!localStorage.getItem('token')) {
+      // User is not authenticated, redirect to the login page or show an error message
+      next({ name: 'Login' });
+    } else {
+      // User is authenticated, allow access to the route
+      next();
+    }
+  } else {
+    // Non-authenticated routes, allow access
+    next();
+  }
+});
 
 export default router;
