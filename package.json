@@ -1,6 +1,7 @@
 {
   "name": "al-dente-www",
   "private": true,
+  "packageManager": "pnpm@7.21.0",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
