@@ -2,19 +2,11 @@
 
 @layer base {
   body {
-<<<<<<< HEAD:src/assets/styles/base.css
-    @apply font-sans antialiased bg-white text-black dark:bg-black dark:text-white;
-  }
-
-  a {
-    @apply text-blue-500 hover:underline;
-=======
     @apply dark:bg-gray-800 dark:text-gray-200;
   }
 
   a { 
     @apply hover:underline;
->>>>>>> main:src/assets/css/base.css
   }
 
   h1,
