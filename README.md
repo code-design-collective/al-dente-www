@@ -1,8 +1,31 @@
-# React + Vite
+# Al Dente WWW
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend web application for Al Dente.
 
-Currently, two official plugins are available:
+## Setup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Follow these steps to set up the project using React with Vite and pnpm:
+
+1. **Install pnpm**: If you haven't already, install pnpm globally using npm:
+    ```sh
+    npm install -g pnpm
+    ```
+
+2. **Install dependencies**: Navigate to the project directory and install the dependencies:
+    ```sh
+    pnpm install
+    ```
+
+3. **Start the development server**: Run the development server using Vite:
+    ```sh
+    pnpm run dev
+    ```
+
+4. **Create .env file at the root following the example.env file**
+
+Make sure you have the necessary configurations in your `package.json` and `vite.config.js` files.
+
+## Technologies
+- React.js
+- Vite.js
+- TailwindCSS
