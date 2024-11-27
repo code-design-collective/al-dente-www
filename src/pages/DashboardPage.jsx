@@ -2,7 +2,9 @@ import React from 'react'
 
 const DashboardPage = () => {
   return (
-    <div>DashboardPage</div>
+    <div className="container">
+      <div>DashboardPage</div>
+    </div>
   )
 }
 

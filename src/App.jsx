@@ -12,19 +12,19 @@ import SignupPage from '@/pages/SignupPage';
 const App = () => {
   return (
     <div id="react-app" className='relative h-screen flex justify-between flex-col'>
-    <div>
-      <Header />
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="signup" element={<SignupPage />} />
-        </Routes>
-      </main>
+      <div>
+        <Header />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="signup" element={<SignupPage />} />
+          </Routes>
+        </main>
+      </div>
+      <Footer />
     </div>
-    <Footer />
-  </div>
   )
 }
 
