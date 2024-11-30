@@ -22,7 +22,7 @@ const App = () => {
           <main>
             <Routes>
               <Route path="/" element={<HomeView />} />
-              <Route path="dashboard" element={
+              <Route path="dashboard/*" element={
                 <RecipeProvider>
                   <DashboardView />
                 </RecipeProvider>

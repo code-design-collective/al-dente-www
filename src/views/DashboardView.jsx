@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import { RecipeContext } from '@/contexts/RecipeContext';
+
+import RecipeForm from '@/components/RecipeForm';
 
 const DashboardPage = () => {
   const { recipes, loading } = useContext(RecipeContext);
@@ -11,7 +13,7 @@ const DashboardPage = () => {
       <div className='w-full grid lg:grid-cols-12 gap-[4rem]'>
         <div className='lg:col-span-3 flex-col-2'>
           <h2 className='h4'>Recipes</h2>
-          <Link className="btn w-max" to='/dashboard/new'>New</Link>
+          <Link className="btn w-max" to='/dashboard/recipes/new'>New</Link>
           <ul className='flex-col-1'>
             {!recipes?.length ? (
               <p>0 Recipes</p>
@@ -23,7 +25,10 @@ const DashboardPage = () => {
           </ul>
         </div>
         <div className='lg:col-span-9'>
-          {/* <p>No Recipes</p> */}
+          <Routes>
+            <Route path="/" element={<div>Select a recipe or create a new one</div>} />
+            <Route path="/recipes/new" element={<RecipeForm />} />
+          </Routes>
         </div>
       </div>
     </div>
