@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
-import axios from 'axios';
 
 const LoginPage = () => {
-  const navigate = useNavigate();
-  const { logIn, isLoggedIn } = useAuth();
+  const { logIn } = useAuth();
 
   // State
   const [formData, setFormData] = useState({
@@ -23,20 +20,12 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await logIn(formData.email, formData.password);
 
-    try {
-      // const response = await axios.post('/api/vlogin/', formData);
-      // const { token, user } = response.data;
-
-      // sessionStorage.setItem('token', token);
-      logIn(formData.email, formData.password);
-      console.log(formData.email, formData.password);
-      if (isLoggedIn) {
-        navigate('/dashboard');
-      }
-    } catch (error) {
-      alert(error.message || 'Login failed');
-    }
+    setFormData({
+      email: '',
+      password: '',
+    });
   };
 
   return (

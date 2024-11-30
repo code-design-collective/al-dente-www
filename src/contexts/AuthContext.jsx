@@ -14,13 +14,25 @@ export const AuthProvider = ({ children }) => {
   const isLoggedIn = useMemo(() => !!user, [user]);
 
   // Methods
+  const setSession = (token) => {
+    sessionStorage.setItem('token', token);
+    setToken(token);
+  };
+
   const logIn = async (email, password) => {
     try {
       const response = await axios.post('/users/login/', { email, password });
+
+      console.log('Response:', response);
+
+      if (response.status !== 200) {
+        alert('Invalid email or password');
+        return;
+      }
+
       const { token, user } = response.data;
 
-      sessionStorage.setItem('token', token);
-      setToken(token);
+      setSession(token);
 
       if (user.id) {
         setUser(user);
@@ -32,11 +44,26 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logOut = () => {
-    sessionStorage.removeItem('token');
     setUser(null);
-    setToken(null);
+    setSession(null);
+    navigate('/login');
   };
 
+  const signUp = async (email, password) => {
+    try {
+      const response = await axios.post('/users/signup/', { email, password });
+
+      if (response.data.user.id) {
+        alert('Sign up successful. Please log in');
+        logOut();
+        navigate('/login');
+      }
+    } catch (error) {
+      alert(`Error - ${error.response.data?.email[0]}` || 'An error occurred. Unable to sign up');
+    }
+  };
+
+  // Effects
   useEffect(() => {
     const storedToken = sessionStorage.getItem('token');
     if (storedToken) {
@@ -51,6 +78,7 @@ export const AuthProvider = ({ children }) => {
   const authContextValue = {
     logIn,
     logOut,
+    signUp,
     isLoggedIn,
     user,
     token,

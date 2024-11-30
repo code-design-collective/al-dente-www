@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-
-import { userSignup } from '@/api/auth';
+import { useAuth } from '@/contexts/AuthContext';
 
 const SignupPage = () => {
-  const navigate = useNavigate();
+  const { signUp } = useAuth();
 
   // State
   const [formData, setFormData] = useState({
@@ -20,41 +18,29 @@ const SignupPage = () => {
       [e.target.name]: e.target.value,
     });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      if (formData.password !== formData.confirmPassword) {
-        alert('Passwords do not match');
-        setFormData({
-          ...formData,
-          password: '',
-          confirmPassword: '',
-        });
-        return;
-      }
+    if (formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match');
 
-      const response = await userSignup(formData);
-
-      if (response.user.id) {
-        alert('Sign up successful. Please log in');
-        setFormData({
-          email: '',
-          password: '',
-          confirmPassword: '',
-        });
-        navigate('/login')
-      }
-
-    } catch (error) {
-      alert(`Error - ${error.response.data?.email[0]}` || 'An error occurred. Unable to sign up');
       setFormData({
-        email: '',
+        ...formData,
         password: '',
         confirmPassword: '',
       });
+
+      return;
     }
+
+    await signUp(formData.email, formData.password);
+
+    setFormData({
+      email: '',
+      password: '',
+      confirmPassword: '',
+    });
   };
 
   return (
