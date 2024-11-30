@@ -35,7 +35,6 @@ export const RecipeProvider = ({ children }) => {
     const createRecipe = async (recipeData) => {
         try {
             await axios.post('/recipes/new/', recipeData);
-            // setRecipes([...recipes, response.data]);
             fetchRecipes();
         } catch (error) {
             console.error('Error creating recipe:', error);
@@ -45,7 +44,6 @@ export const RecipeProvider = ({ children }) => {
     const updateRecipe = async (id, recipeData) => {
         try {
             await axios.put(`/recipes/edit/${id}/`, recipeData);
-            // setRecipes(recipes.map(recipe => (recipe.id === id ? response.data : recipe)));
             fetchRecipes();
         } catch (error) {
             console.error('Error updating recipe:', error);
@@ -55,7 +53,6 @@ export const RecipeProvider = ({ children }) => {
     const deleteRecipe = async (id) => {
         try {
             await axios.delete(`/recipes/delete/${id}/`);
-            // setRecipes(recipes.filter(recipe => recipe.id !== id));
             fetchRecipes();
         } catch (error) {
             console.error('Error deleting recipe:', error);
