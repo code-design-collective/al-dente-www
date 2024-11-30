@@ -4,6 +4,7 @@ import '@/api/axiosConfig'
 import { Routes, Route } from "react-router-dom"
 
 import { AuthProvider } from '@/contexts/AuthContext';
+import { RecipeProvider } from '@/contexts/RecipeContext';
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -21,7 +22,11 @@ const App = () => {
           <main>
             <Routes>
               <Route path="/" element={<HomeView />} />
-              <Route path="dashboard" element={<DashboardView />} />
+              <Route path="dashboard" element={
+                <RecipeProvider>
+                  <DashboardView />
+                </RecipeProvider>
+              } />
               <Route path="login" element={<LoginView />} />
               <Route path="signup" element={<SignupView />} />
             </Routes>
