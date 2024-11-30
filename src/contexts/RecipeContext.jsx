@@ -63,7 +63,6 @@ export const RecipeProvider = ({ children }) => {
         }
     };
 
-
     // Lifecycle
     useEffect(() => {
         fetchRecipes();

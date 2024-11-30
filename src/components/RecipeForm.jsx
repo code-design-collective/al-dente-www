@@ -41,11 +41,11 @@ const RecipeForm = () => {
     }, [id, recipeData]);
 
     useEffect(() => {
-        if (isEdit) {
+        if (location.pathname.includes('new')) {
             setRecipeData(null);
             console.log('hello???', isEdit)
         }
-    }, [isEdit]);
+    }, [location]);
     return (
         <div className='flex-col-2 p-[1rem]'>
             <Link to={id ? `/dashboard/recipes/${id}` : '/dashboard'} className='flex items-center gap-x-[0.2rem] w-max'>

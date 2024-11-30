@@ -6,20 +6,15 @@ import { RecipeContext } from '@/contexts/RecipeContext';
 import IconBack from '@/components/icons/IconBack';
 
 const RecipeDetail = () => {
-    // Context
     const { fetchRecipe, deleteRecipe, recipeData } = useContext(RecipeContext);
-
-    // State
     const { id } = useParams();
 
-    // Methods
     const handleDelete = () => {
         if (window.confirm('Are you sure you want to delete this recipe?')) {
             deleteRecipe(id);
         }
     }
 
-    // Lifecycle
     useEffect(() => {
         fetchRecipe(id);
     }, [id]);
