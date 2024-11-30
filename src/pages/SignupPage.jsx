@@ -42,8 +42,9 @@ const SignupPage = () => {
         confirmPassword: '',
       });
 
-      alert(response.data.message)
+      alert('Sign up successful. Please log in');
       navigate('/login')
+      
     } catch (error) {
       alert(`Error - ${error.response.data?.email[0]}` || 'An error occurred. Unable to sign up');
       setFormData({
