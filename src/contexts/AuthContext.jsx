@@ -1,22 +1,31 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  // State
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
 
+  const isLoggedIn = useMemo(() => !!user, [user]);
+
+  // Methods
   const logIn = async (email, password) => {
     try {
       const response = await axios.post('/users/login/', { email, password });
       const { token, user } = response.data;
-      console.log('response:', response.data);
-      setUser(user);
-      setToken(token);
-      setLoggedIn(true);
+
       sessionStorage.setItem('token', token);
+      setToken(token);
+
+      if (user.id) {
+        setUser(user);
+        navigate('/dashboard');
+      }
     } catch (error) {
       console.error('Error logging in:', error);
     }
@@ -25,16 +34,16 @@ export const AuthProvider = ({ children }) => {
   const logOut = () => {
     sessionStorage.removeItem('token');
     setUser(null);
-    setLoggedIn(false);
     setToken(null);
   };
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem('token');
     if (storedToken) {
+      console.log('Token found in session storage');
+      console.log(storedToken)
       // Todo verify the token with the backend here
       setToken(storedToken);
-      setLoggedIn(true);
       // TODO Fetch user data
     }
   }, []);
