@@ -13,7 +13,7 @@ const DashboardPage = () => {
       <div className='w-full grid lg:grid-cols-12 gap-[2rem]'>
         <div className='lg:col-span-3 flex-col-2'>
           <div className="flex-col-1">
-            <h2 className='h4'>Recipes</h2>
+            <h2 className='label'>Recipes</h2>
             <ul className='flex-col-05'>
               {!recipes?.length ? (
                 <p>0 Recipes</p>
@@ -38,6 +38,7 @@ const DashboardPage = () => {
               </div>
             } />
             <Route path="/recipes/new" element={<RecipeForm />} />
+            <Route path="/recipes/edit/:id" element={<RecipeForm />} />
             <Route path="/recipes/:id" element={<RecipeDetail />} />
           </Routes>
         </div>
