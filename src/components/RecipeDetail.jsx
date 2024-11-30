@@ -37,15 +37,23 @@ const RecipeDetail = () => {
     }
 
     return (
-        <section className='flex-col-2'>
+        <section className='flex-col-1'>
             <Link to='/dashboard' className='flex items-center gap-x-[0.2rem] w-max'>
                 <IconBack />
                 <span className='uppercase text-[14px]'>Back</span>
             </Link>
-            <article>
+            <article className='flex-col-2'>
                 <h2>{recipe.title}</h2>
-                <p>{recipe.ingredients}</p>
-                <p>{recipe.instructions}</p>
+                <div className="flex-col-2">
+                    <div className="flex-col-05">
+                        <span className="label">Ingredients</span>
+                        <p>{recipe.ingredients}</p>
+                    </div>
+                    <div className="flex-col-05">
+                        <span className="label">Instructions</span>
+                        <p>{recipe.instructions}</p>
+                    </div>
+                </div>
             </article>
         </section>
     );

@@ -33,5 +33,7 @@
     @apply bg-transparent border-b border-black dark:border-gray-400 rounded-md p-2;
   }
 
-
+  .label {
+    @apply text-sm font-bold uppercase;
+  }
 }

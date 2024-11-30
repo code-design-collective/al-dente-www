@@ -7,12 +7,13 @@ const Header = () => {
     const { logOut, isLoggedIn, user } = useAuth();
 
     return (
-        <header className='py-[2rem]'>
-            <div className="container flex justify-between">
+        <header className='py-[2rem] flex items-center'>
+            <div className="container flex justify-between items-center">
                 <Link to="/">
                     <h1 className='text-2xl'>Al Dente</h1>
                 </Link>
                 <div className="flex items-center gap-x-[2rem]">
+                    {isLoggedIn && <Link className="btn w-max text-center bg-transparent border-black dark:border-white border text-black dark:text-white" to='/dashboard/recipes/new'>New</Link>}
                     {isLoggedIn && <p>{user.email}</p>}
                     <nav className="flex gap-[1rem] items-center">
                         {isLoggedIn && <Link to="/dashboard">Dashboard</Link>}
