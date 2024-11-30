@@ -43,7 +43,6 @@ const RecipeForm = () => {
     useEffect(() => {
         if (location.pathname.includes('new')) {
             setRecipeData(null);
-            console.log('hello???', isEdit)
         }
     }, [location]);
     return (
