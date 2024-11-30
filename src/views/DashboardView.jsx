@@ -19,8 +19,12 @@ const DashboardPage = () => {
             {!recipes?.length ? (
               <p>0 Recipes</p>
             ) : (
-              recipes.map((recipe) => (
-                <li key={recipe.id}>{recipe.name}</li>
+              recipes.map((recipe, index) => (
+                <li key={recipe.id}>
+                  <Link to={`/dashboard/recipes/${recipe.id}`}>
+                    <span>{recipe.title}</span>
+                  </Link>
+                </li>
               ))
             )}
           </ul>
