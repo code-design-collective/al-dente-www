@@ -63,15 +63,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get('/users/me/');
+      console.log('User data:', response.data);
+      if (response.status === 200) {
+        setUser(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      logOut();
+    }
+  };
+
   // Effects
   useEffect(() => {
     const storedToken = sessionStorage.getItem('token');
     if (storedToken) {
-      console.log('Token found in session storage');
-      console.log(storedToken)
-      // Todo verify the token with the backend here
       setToken(storedToken);
-      // TODO Fetch user data
+      fetchUserData();
     }
   }, []);
 
