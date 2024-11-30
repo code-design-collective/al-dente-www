@@ -34,6 +34,7 @@ export const RecipeProvider = ({ children }) => {
 
     const createRecipe = async (recipeData) => {
         try {
+            console.log('Creating recipe:', recipeData);
             await axios.post('/recipes/new/', recipeData);
             fetchRecipes();
         } catch (error) {
