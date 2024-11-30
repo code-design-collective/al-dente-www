@@ -29,3 +29,4 @@ Make sure you have the necessary configurations in your `package.json` and `vite
 - React.js
 - Vite.js
 - TailwindCSS
+- Cloudflare Pages
