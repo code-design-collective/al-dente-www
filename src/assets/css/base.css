@@ -29,7 +29,9 @@
     @apply text-[1rem] font-bold;
   }
 
-  input {
-    @apply px-0;
+  input, textarea {
+    @apply bg-transparent border-b border-black dark:border-gray-400 rounded-md p-2;
   }
+
+
 }

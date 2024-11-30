@@ -1,16 +1,17 @@
-import '@/assets/css/index.css'
-import '@/api/axiosConfig'
+import '@/assets/css/index.css';
+import '@/utils/axiosConfig';
 
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
 
 import { AuthProvider } from '@/contexts/AuthContext';
+import { RecipeProvider } from '@/contexts/RecipeContext';
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import HomePage from '@/pages/HomePage';
-import DashboardPage from '@/pages/DashboardPage';
-import LoginPage from '@/pages/LoginPage';
-import SignupPage from '@/pages/SignupPage';
+import HomeView from '@/views/HomeView';
+import DashboardView from '@/views/DashboardView';
+import LoginView from '@/views/LoginView';
+import SignupView from '@/views/SignupView';
 
 const App = () => {
   return (
@@ -20,10 +21,14 @@ const App = () => {
           <Header />
           <main>
             <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="dashboard" element={<DashboardPage />} />
-              <Route path="login" element={<LoginPage />} />
-              <Route path="signup" element={<SignupPage />} />
+              <Route path="/" element={<HomeView />} />
+              <Route path="dashboard/*" element={
+                <RecipeProvider>
+                  <DashboardView />
+                </RecipeProvider>
+              } />
+              <Route path="login" element={<LoginView />} />
+              <Route path="signup" element={<SignupView />} />
             </Routes>
           </main>
         </div>
