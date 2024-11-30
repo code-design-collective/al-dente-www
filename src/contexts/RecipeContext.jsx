@@ -59,6 +59,7 @@ export const RecipeProvider = ({ children }) => {
         try {
             await axios.delete(`/recipes/delete/${id}/`);
             fetchRecipes();
+            navigate('/dashboard');
         } catch (error) {
             console.error('Error deleting recipe:', error);
         }
