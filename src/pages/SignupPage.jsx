@@ -45,7 +45,12 @@ const SignupPage = () => {
       alert(response.data.message)
       navigate('/login')
     } catch (error) {
-      alert(error.response?.data?.error);
+      alert(`Error - ${error.response.data?.email[0]}` || 'An error occurred. Unable to sign up');
+      setFormData({
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
     }
   };
   return (
@@ -54,7 +59,7 @@ const SignupPage = () => {
         <h1>Sign Up</h1>
         <form onSubmit={handleSubmit} className="flex-col-1">
           <div className="flex-col-05">
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">Email</label>
             <input required
               type="email"
               id="email"
@@ -63,7 +68,7 @@ const SignupPage = () => {
               onChange={handleChange} />
           </div>
           <div className="flex-col-05">
-            <label htmlFor="password">Password:</label>
+            <label htmlFor="password">Password</label>
             <input required
               type="password" id="password"
               name="password"
@@ -71,7 +76,7 @@ const SignupPage = () => {
               onChange={handleChange} />
           </div>
           <div className="flex-col-05">
-            <label htmlFor="confirmPassword">Confirm Password:</label>
+            <label htmlFor="confirmPassword">Confirm Password</label>
             <input required
               type="password"
               id="confirmPassword"
