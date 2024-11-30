@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 
 const LoginPage = () => {
@@ -61,6 +62,10 @@ const LoginPage = () => {
           </button>
         </form>
       </div>
+      <div className="signup-link text-[0.75rem]">
+          <p>Don't have an account?</p>
+          <p><Link to='/signup' className='underline'>Click here</Link> to sign up!</p>
+        </div>
     </div>
   );
 };
