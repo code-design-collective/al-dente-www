@@ -19,12 +19,12 @@ const RecipeForm = () => {
         console.log('Form:', form);
         console.log('Form Data:', formData);
         console.log('Recipe Data:', recipeData);
-        // createRecipe(recipeData);
+        createRecipe(recipeData);
     };
 
     return (
         <div className='flex-col-2 p-[1rem]'>
-            <Link to='/dashboard' className='flex items-center gap-x-[0.2rem]'>
+            <Link to='/dashboard' className='flex items-center gap-x-[0.2rem] w-max'>
                 <IconBack />
                 <span className='uppercase text-[14px]'>Back</span>
             </Link>
@@ -32,17 +32,17 @@ const RecipeForm = () => {
             <form onSubmit={handleSubmit} action="submit">
                 <div className='flex-col-2 gap-y-[1rem]'>
                     <div className='flex-col-05 gap-y-[0.5rem]'>
-                        <label htmlFor="name">Name</label>
-                        <input type="text" id="name" name="name" className='border' />
+                        <label htmlFor="title">Name</label>
+                        <input type="text" id="title" name="title" className='border' />
                     </div>
 
                     <div className='flex-col-05 gap-y-[0.5rem]'>
                         <label htmlFor="ingredients">Ingredients</label>
-                        <textarea id="ingredients" name="ingredients" className='border'></textarea>
+                        <textarea id="ingredients" name="ingredients" className='border h-[8rem]'></textarea>
                     </div>
                     <div className='flex-col-05 gap-y-[0.5rem]'>
                         <label htmlFor="instructions">Instructions</label>
-                        <textarea id="instructions" name="instructions" className='border'></textarea>
+                        <textarea id="instructions" name="instructions" className='border h-[8rem]'></textarea>
                     </div>
                     <button type="submit" className='bg-blue-500 text-white py-2 rounded'>Create</button>
                 </div>
