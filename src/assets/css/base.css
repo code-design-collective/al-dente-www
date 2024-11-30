@@ -8,6 +8,7 @@
   a { 
     @apply hover:underline;
   }
+
   h1,
   .h1 {
     @apply text-[4rem] font-bold;

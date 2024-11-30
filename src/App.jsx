@@ -1,6 +1,9 @@
 import '@/assets/css/index.css'
+import '@/api/axiosConfig'
 
 import { Routes, Route } from "react-router-dom"
+
+import { AuthProvider } from '@/contexts/AuthContext';
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -11,20 +14,22 @@ import SignupPage from '@/pages/SignupPage';
 
 const App = () => {
   return (
-    <div id="react-app" className='relative h-screen flex justify-between flex-col'>
-      <div>
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="dashboard" element={<DashboardPage />} />
-            <Route path="login" element={<LoginPage />} />
-            <Route path="signup" element={<SignupPage />} />
-          </Routes>
-        </main>
+    <AuthProvider>
+      <div id="react-app" className='relative h-screen flex justify-between flex-col'>
+        <div>
+          <Header />
+          <main>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="dashboard" element={<DashboardPage />} />
+              <Route path="login" element={<LoginPage />} />
+              <Route path="signup" element={<SignupPage />} />
+            </Routes>
+          </main>
+        </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </AuthProvider>
   )
 }
 
