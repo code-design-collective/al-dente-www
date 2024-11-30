@@ -9,6 +9,7 @@ export const RecipeProvider = ({ children }) => {
 
     // State
     const [recipes, setRecipes] = useState([]);
+    const [recipeData, setRecipeData] = useState(null);
     const [loading, setLoading] = useState(true);
 
     // Methods
@@ -22,21 +23,17 @@ export const RecipeProvider = ({ children }) => {
             setLoading(false);
         }
     };
-
     const fetchRecipe = async (id) => {
         try {
             const response = await axios.get(`/recipes/${id}/`);
-            return response.data;
+            setRecipeData(response.data);
         } catch (error) {
             console.error('Error fetching recipe:', error);
         }
     };
-
     const createRecipe = async (recipeData) => {
         try {
-            console.log('Creating recipe:', recipeData);
             const response = await axios.post('/recipes/new/', recipeData);
-
             if (response.status === 201) {
                 fetchRecipes();
                 navigate(`/dashboard/recipes/${response.data.id}`);
@@ -45,20 +42,22 @@ export const RecipeProvider = ({ children }) => {
             console.error('Error creating recipe:', error);
         }
     };
-
     const updateRecipe = async (id, recipeData) => {
         try {
-            await axios.put(`/recipes/edit/${id}/`, recipeData);
-            fetchRecipes();
+            const response = await axios.put(`/recipes/edit/${id}/`, recipeData);
+            if (response.status === 200) {
+                fetchRecipes();
+                navigate(`/dashboard/recipes/${id}`);
+            }
         } catch (error) {
             console.error('Error updating recipe:', error);
         }
     };
-
     const deleteRecipe = async (id) => {
         try {
             await axios.delete(`/recipes/delete/${id}/`);
             fetchRecipes();
+            navigate('/dashboard');
         } catch (error) {
             console.error('Error deleting recipe:', error);
         }
@@ -72,11 +71,13 @@ export const RecipeProvider = ({ children }) => {
     return (
         <RecipeContext.Provider value={{
             recipes,
+            recipeData,
             loading,
             fetchRecipe,
             createRecipe,
             updateRecipe,
-            deleteRecipe
+            deleteRecipe,
+            setRecipeData,
         }}>
             {children}
         </RecipeContext.Provider>
