@@ -1,4 +1,5 @@
 import '@/assets/css/index.css'
+import '@/api/axiosConfig'
 
 import { Routes, Route } from "react-router-dom"
 

@@ -20,6 +20,7 @@ const SignupPage = () => {
       [e.target.name]: e.target.value,
     });
   };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -36,15 +37,16 @@ const SignupPage = () => {
 
       const response = await userSignup(formData);
 
-      setFormData({
-        email: '',
-        password: '',
-        confirmPassword: '',
-      });
+      if (response.user.id) {
+        alert('Sign up successful. Please log in');
+        setFormData({
+          email: '',
+          password: '',
+          confirmPassword: '',
+        });
+        navigate('/login')
+      }
 
-      alert('Sign up successful. Please log in');
-      navigate('/login')
-      
     } catch (error) {
       alert(`Error - ${error.response.data?.email[0]}` || 'An error occurred. Unable to sign up');
       setFormData({
@@ -54,6 +56,7 @@ const SignupPage = () => {
       });
     }
   };
+
   return (
     <div id="signup" className="flex justify-center items-center">
       <div className="flex flex-col gap-y-[2rem] bg-blue-400 px-[6rem] py-[4rem] rounded-md">

@@ -1,40 +1,41 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { jwtDecode } from "jwt-decode";
+import axios from 'axios';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token') || null);
+  const [token, setToken] = useState(null);
 
-  const logIn = (token) => {
+  const logIn = async (email, password) => {
     try {
-      const decodedToken = jwtDecode(token);
-
-      setUser({
-        id: decodedToken.userId,
-        email: decodedToken.email,
-      });
+      const response = await axios.post('/users/login/', { email, password });
+      const { token, user } = response.data;
+      console.log('response:', response.data);
+      setUser(user);
       setToken(token);
       setLoggedIn(true);
-      localStorage.setItem('token', token);
+      sessionStorage.setItem('token', token);
     } catch (error) {
-      console.error('Error decoding token:', error);
+      console.error('Error logging in:', error);
     }
   };
 
   const logOut = () => {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     setUser(null);
     setLoggedIn(false);
     setToken(null);
   };
 
   useEffect(() => {
-    const storedToken = localStorage.getItem('token');
+    const storedToken = sessionStorage.getItem('token');
     if (storedToken) {
-      logIn(storedToken);
+      // Todo verify the token with the backend here
+      setToken(storedToken);
+      setLoggedIn(true);
+      // TODO Fetch user data
     }
   }, []);
 
@@ -53,6 +54,4 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);
