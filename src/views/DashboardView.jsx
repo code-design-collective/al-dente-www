@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import { RecipeContext } from '@/contexts/RecipeContext';
 
 import RecipeForm from '@/components/RecipeForm';
+import RecipeDetail from '@/components/RecipeDetail';
 
 const DashboardPage = () => {
   const { recipes, loading } = useContext(RecipeContext);
@@ -28,6 +29,7 @@ const DashboardPage = () => {
           <Routes>
             <Route path="/" element={<div>Select a recipe or create a new one</div>} />
             <Route path="/recipes/new" element={<RecipeForm />} />
+            <Route path="/recipes/:id" element={<RecipeDetail />} />
           </Routes>
         </div>
       </div>

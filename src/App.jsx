@@ -1,7 +1,7 @@
-import '@/assets/css/index.css'
-import '@/api/axiosConfig'
+import '@/assets/css/index.css';
+import '@/utils/axiosConfig';
 
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
 
 import { AuthProvider } from '@/contexts/AuthContext';
 import { RecipeProvider } from '@/contexts/RecipeContext';

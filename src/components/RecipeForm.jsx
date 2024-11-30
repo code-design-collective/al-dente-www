@@ -33,7 +33,7 @@ const RecipeForm = () => {
                 <div className='flex-col-2 gap-y-[1rem]'>
                     <div className='flex-col-05 gap-y-[0.5rem]'>
                         <label htmlFor="title">Name</label>
-                        <input type="text" id="title" name="title" className='border' />
+                        <input required type="text" id="title" name="title" className='border' />
                     </div>
 
                     <div className='flex-col-05 gap-y-[0.5rem]'>

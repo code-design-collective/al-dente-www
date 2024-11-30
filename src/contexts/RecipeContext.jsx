@@ -1,16 +1,17 @@
 import axios from 'axios';
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const RecipeContext = createContext();
 
 export const RecipeProvider = ({ children }) => {
+    const navigate = useNavigate();
+
+    // State
     const [recipes, setRecipes] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetchRecipes();
-    }, []);
-
+    // Methods
     const fetchRecipes = async () => {
         try {
             const response = await axios.get('/recipes/');
@@ -35,8 +36,12 @@ export const RecipeProvider = ({ children }) => {
     const createRecipe = async (recipeData) => {
         try {
             console.log('Creating recipe:', recipeData);
-            await axios.post('/recipes/new/', recipeData);
-            fetchRecipes();
+            const response = await axios.post('/recipes/new/', recipeData);
+
+            if (response.status === 201) {
+                fetchRecipes();
+                navigate(`/dashboard/recipes/${response.data.id}`);
+            }
         } catch (error) {
             console.error('Error creating recipe:', error);
         }
@@ -59,6 +64,11 @@ export const RecipeProvider = ({ children }) => {
             console.error('Error deleting recipe:', error);
         }
     };
+
+    // Lifecycle
+    useEffect(() => {
+        fetchRecipes();
+    }, []);
 
     return (
         <RecipeContext.Provider value={{
