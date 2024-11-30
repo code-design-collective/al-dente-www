@@ -43,12 +43,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logOut = () => {
-    axios.post('/users/logout/');
-    
-    setUser(null);
-    setSession(null);
-    navigate('/login');
+  const logOut = async () => {
+    const response = await axios.post('/users/logout/');
+
+    console.log('Logout response:', response);
+    if(response.status === 200) {
+      setSession(null);
+      setUser(null);
+      navigate('/login');
+    }
   };
 
   const signUp = async (email, password) => {
@@ -70,16 +73,14 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.get('/users/whoami/');
 
       console.log('User data:', response.data);
-      if (response.status !== 200) {
-        setSession(null);
-        console.log('Invalid token');
-        return;
+
+      if (response.status === 200) {
+        setSession(token);
+        setUser(response.data);
       }
-      setUser(response.data);
-      setSession(token);
+
     } catch (error) {
       console.error('Error fetching user data:', error);
-
       setSession(null);
     }
   };
@@ -87,9 +88,11 @@ export const AuthProvider = ({ children }) => {
   // Effects
   useEffect(() => {
     const storedToken = sessionStorage.getItem('token');
-    if (storedToken) {
+    if (storedToken && storedToken !== 'null') {
       fetchUserData(storedToken);
-      // setToken(storedToken);
+    }
+    else {
+      setSession(null);
     }
   }, []);
 

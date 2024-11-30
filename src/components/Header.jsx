@@ -15,11 +15,10 @@ const Header = () => {
                 <nav className="flex gap-[1rem]">
                     {isLoggedIn ? <button onClick={logOut}>Log out</button> : <Link to="/login">Login</Link>}
                     <Link to="/signup">Sign up</Link>
-                    <button onClick={logOut}>Log out</button>
                 </nav>
             </div >
         </header >
     )
 }
 
-export default Header
+export default Header;
