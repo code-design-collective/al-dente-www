@@ -15,7 +15,6 @@ export const RecipeProvider = ({ children }) => {
     const fetchRecipes = async () => {
         try {
             const response = await axios.get('/recipes/');
-            console.log('Recipes:', response.data);
             setRecipes(response.data);
         } catch (error) {
             console.error('Error fetching recipes:', error);

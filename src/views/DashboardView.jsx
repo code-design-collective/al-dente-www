@@ -13,8 +13,8 @@ const DashboardPage = () => {
       <h1 className='h2'>Let's get cookin!</h1>
       <div className='w-full grid lg:grid-cols-12 gap-[4rem]'>
         <div className='lg:col-span-3 flex-col-2'>
-          <h2 className='h4'>Recipes</h2>
           <Link className="btn w-max" to='/dashboard/recipes/new'>New</Link>
+          <h2 className='h4'>Recipes</h2>
           <ul className='flex-col-1'>
             {!recipes?.length ? (
               <p>0 Recipes</p>
