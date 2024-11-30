@@ -23,8 +23,6 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await axios.post('/users/login/', { email, password });
 
-      console.log('Response:', response);
-
       if (response.status !== 200) {
         alert('Invalid email or password');
         return;
@@ -46,7 +44,6 @@ export const AuthProvider = ({ children }) => {
   const logOut = async () => {
     const response = await axios.post('/users/logout/');
 
-    console.log('Logout response:', response);
     if(response.status === 200) {
       setSession(null);
       setUser(null);
@@ -71,8 +68,6 @@ export const AuthProvider = ({ children }) => {
   const fetchUserData = async (token) => {
     try {
       const response = await axios.get('/users/whoami/');
-
-      console.log('User data:', response.data);
 
       if (response.status === 200) {
         setSession(token);
